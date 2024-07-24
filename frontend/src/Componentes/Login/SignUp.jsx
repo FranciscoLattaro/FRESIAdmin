@@ -53,7 +53,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="mt-5">
       <section className="h-80 gradient-form ">
         <div>
           <div className="row d-flex justify-content-center align-items-center h-50 ">
