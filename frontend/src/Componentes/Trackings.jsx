@@ -1,11 +1,16 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/track/";
 
 const CompTrackings = () => {
   const [rows, setRows] = useState([]);
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
+  
   useEffect(() => {
     getRows();
   }, []);

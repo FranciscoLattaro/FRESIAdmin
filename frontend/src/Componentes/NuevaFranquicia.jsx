@@ -3,7 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
-
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
@@ -16,6 +17,8 @@ const theme = createTheme({
 });
 
 const CompNuevaFranquicia = () => {
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
   const [nombre_completo, setNombreCompleto] = useState("");
   const [cedula_identidad, setCedulaDeIdentidad] = useState("");
   const [fecha_nac, setFechaNac] = useState("");

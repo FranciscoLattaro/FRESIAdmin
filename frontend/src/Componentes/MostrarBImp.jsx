@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BasicTableBimps from "./BasicTableBimps";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/bimps/";
 
@@ -15,6 +17,8 @@ const theme = createTheme({
 
 const CompMostrarBImp = () => {
   const [bimps, setBimps] = useState([]);
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
 
   useEffect(() => {
     getBimps();

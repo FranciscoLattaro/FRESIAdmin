@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./utils/AuthContext.js";
+import { AuthProvider } from "./Componentes/utils/AuthContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

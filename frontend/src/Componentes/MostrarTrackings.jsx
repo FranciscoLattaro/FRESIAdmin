@@ -4,7 +4,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BasicTableTracking from "./BasicTableBimps";
-
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const theme = createTheme({
   palette: {
@@ -14,7 +15,9 @@ const theme = createTheme({
 
 const CompMostrarTrackings = () => {
   const [trackings, setTracking] = useState([]);
-
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
+  
   useEffect(() => {
     getTrackings();
   }, []);

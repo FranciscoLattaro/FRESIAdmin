@@ -3,10 +3,15 @@ import React, { useState, useEffect } from "react";
 import BasicTable from "./BasicTable";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 const URI = "http://localhost:8000/suites/";
+
 
 const CompMostrarFranquicias = () => {
   const [franqs, setFranqs] = useState([]);
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
 
   useEffect(() => {
     getFranqs();

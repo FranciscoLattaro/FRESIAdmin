@@ -13,6 +13,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/eimps/create/";
 
@@ -23,6 +25,8 @@ const theme = createTheme({
 });
 
 const CompNuevaEImp = () => {
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
   const [franquicia, setFranquicia] = useState("");
   const [detalle_compra, setDetalleCompra] = useState("");
   const [tarjeta, setTarjeta] = useState("");

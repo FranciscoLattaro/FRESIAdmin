@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/track/create/";
 
@@ -14,6 +16,8 @@ const theme = createTheme({
 });
 
 const CompNuevoTracking = () => {
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
   const [emp_trans, setEmpTrans] = useState("");
   const [tracking_ext, setTrackExt] = useState("");
   const [tracking_unique, setTrackUnique] = useState("");

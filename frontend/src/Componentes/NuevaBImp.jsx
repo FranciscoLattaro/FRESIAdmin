@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/bimps/create/";
 
@@ -22,6 +24,8 @@ const CompNuevaBImp = () => {
   const [procesado, setProcesado] = useState("");
   const [id_EImportacion, setIdEImportacion] = useState("");
   const navigate = useNavigate();
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
 
   //Procedimiento para guardar
   const store = async (e) => {

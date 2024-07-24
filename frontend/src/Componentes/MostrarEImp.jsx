@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BasicTableEimps from "./BasicTableEimps";
+import { useAuth } from "./utils/AuthContext.js";
+import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/eimps/";
 
@@ -15,6 +17,8 @@ const theme = createTheme({
 
 const CompMostrarEImp = () => {
   const [eimps, setEimps] = useState([]);
+  const { user } = useAuth(); // Obtener el usuario autenticado
+  useAuthRedirect(user); //Redirigir si no está autenticado
 
   useEffect(() => {
     getEimps();

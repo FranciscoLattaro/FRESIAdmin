@@ -15,6 +15,7 @@ import Login from "./Componentes/Login/Login.jsx";
 import SignUp from "./Componentes/Login/SignUp.jsx";
 import CompMostrarTrackings from "./Componentes/MostrarTrackings.jsx";
 import CompEditarBImp from "./Componentes/EditarBImp.jsx"; // Importa tu componente de edición
+import NotAuthenticated from "./Componentes/NotAuthenticated.jsx"
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
           <div className="col">
             <Routes>
               <Route path="/" element={<CompMostrarBImp />}></Route>
-
+              <Route path="/not-authenticated" element={<NotAuthenticated />}></Route>
               <Route path="/login/" element={<Login />}></Route>
               <Route path="/signUp/" element={<SignUp />}></Route>
 
