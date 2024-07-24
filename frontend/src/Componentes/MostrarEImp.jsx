@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import BasicTableEimps from "./BasicTableEimps";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
+import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/eimps/";
 
@@ -53,6 +54,7 @@ const CompMostrarEImp = () => {
       </h3>
       <BasicTableEimps rows={eimps} deleteEimps={deleteEimps} />
       <Button
+        component={Link}
         className="mt-2"
         variant="contained"
         sx={{

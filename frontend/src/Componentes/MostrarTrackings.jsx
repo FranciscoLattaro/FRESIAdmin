@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import BasicTableTracking from "./BasicTableBimps";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -48,6 +49,7 @@ const CompMostrarTrackings = () => {
         </h3>
         <BasicTableTracking rows={trackings} deleteTracking={deleteTracking} />
         <Button
+          component={Link}
           className="mt-2"
           variant="contained"
           sx={{

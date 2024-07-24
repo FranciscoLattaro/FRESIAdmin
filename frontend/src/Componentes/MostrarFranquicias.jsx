@@ -46,6 +46,7 @@ const CompMostrarFranquicias = () => {
       <BasicTable rows={franqs} deleteFranq={deleteFranq} />
 
       <Button
+        component={Link}
         className="mt-2  "
         variant="contained"
         sx={{
