@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
+import { Link } from "react-router-dom";
 const URI = "http://localhost:8000/suites/";
 
 
@@ -57,7 +58,7 @@ const CompMostrarFranquicias = () => {
             color: "black",
           },
         }}
-        href={`/suites/create`}
+        to={`/suites/create`}
         startIcon={<AddIcon />}
       >
         Nueva Suite
