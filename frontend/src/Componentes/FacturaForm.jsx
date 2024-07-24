@@ -48,7 +48,7 @@ const FacturaForm = () => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6">Subir Factura</Typography>
+        
         <form onSubmit={handleSubmit}>
           <input
             accept="image/*"

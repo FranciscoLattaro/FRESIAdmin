@@ -21,19 +21,19 @@ const Facturas = () => {
       <Box sx={{ p: 3 }}>
         {value === 0 && (
           <>
-            <Typography>Contenido del Punto Mio</Typography>
+            <Typography className='mb-2'>Sube tu factura de Punto Mío! Recuerda agregar PM en la descripción</Typography>
             <FacturaForm /> {/* Agrega el formulario aquí */}
           </>
         )}
         {value === 1 && (
           <>
-            <Typography>Contenido de Importaciones Shein</Typography>
+            <Typography className='mb-2'>Sube tu factura de SHEIN! Recuerda agregar SH en la descripción</Typography>
             <FacturaForm /> {/* Agrega el formulario aquí */}
           </>
         )}
         {value === 2 && (
           <>
-            <Typography>Contenido de Gastos Varios</Typography>
+            <Typography className='mb-2'>Sube tu factura de Gastos Varios! Recuerda agregar GV en la descripción</Typography>
             <FacturaForm /> {/* Agrega el formulario aquí */}
           </>
         )}
