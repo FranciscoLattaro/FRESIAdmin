@@ -24,8 +24,8 @@ const CompNuevaBImp = () => {
   const [procesado, setProcesado] = useState("");
   const [id_EImportacion, setIdEImportacion] = useState("");
   const navigate = useNavigate();
-  const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  //const { user } = useAuth(); // Obtener el usuario autenticado
+  //useAuthRedirect(user); //Redirigir si no está autenticado
 
   //Procedimiento para guardar
   const store = async (e) => {

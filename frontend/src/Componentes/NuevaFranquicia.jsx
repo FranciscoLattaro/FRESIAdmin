@@ -17,8 +17,8 @@ const theme = createTheme({
 });
 
 const CompNuevaFranquicia = () => {
-  const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  //const { user } = useAuth(); // Obtener el usuario autenticado
+  //useAuthRedirect(user); //Redirigir si no está autenticado
   const [nombre_completo, setNombreCompleto] = useState("");
   const [cedula_identidad, setCedulaDeIdentidad] = useState("");
   const [fecha_nac, setFechaNac] = useState("");

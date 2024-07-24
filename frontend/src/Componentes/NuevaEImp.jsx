@@ -25,8 +25,8 @@ const theme = createTheme({
 });
 
 const CompNuevaEImp = () => {
-  const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  //const { user } = useAuth(); // Obtener el usuario autenticado
+  //useAuthRedirect(user); //Redirigir si no está autenticado
   const [franquicia, setFranquicia] = useState("");
   const [detalle_compra, setDetalleCompra] = useState("");
   const [tarjeta, setTarjeta] = useState("");

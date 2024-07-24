@@ -16,8 +16,8 @@ const theme = createTheme({
 });
 
 const CompNuevoTracking = () => {
-  const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  //const { user } = useAuth(); // Obtener el usuario autenticado
+  //useAuthRedirect(user); //Redirigir si no está autenticado
   const [emp_trans, setEmpTrans] = useState("");
   const [tracking_ext, setTrackExt] = useState("");
   const [tracking_unique, setTrackUnique] = useState("");

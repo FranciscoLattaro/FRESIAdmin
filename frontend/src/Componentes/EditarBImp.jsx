@@ -15,8 +15,8 @@ const theme = createTheme({
 });
 
 const CompEditarBImp = () => {
-  const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  //const { user } = useAuth(); // Obtener el usuario autenticado
+  //useAuthRedirect(user); //Redirigir si no está autenticado
 
   const [email_shein, setEmailShein] = useState("");
   const [pass_shein, setPassShein] = useState("");
