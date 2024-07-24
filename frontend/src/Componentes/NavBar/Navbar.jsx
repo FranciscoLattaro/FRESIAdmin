@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 import Cookies from "universal-cookie";
 import { jwtDecode } from "jwt-decode";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,7 +51,7 @@ const Navbar = () => {
         <li><NavLink to="/track/">Tracking</NavLink></li>
         <li><NavLink to="/">Facturas</NavLink></li>
         <li><NavLink to="/">Informes</NavLink></li>
-        <li><NavLink onClick={handleLogout} to="/login">Cerrar Sesión</NavLink></li>
+        <li><NavLink onClick={handleLogout} to="/login"><LogoutIcon></LogoutIcon> Salir</NavLink></li>
       </ul>
     </nav>
   );
