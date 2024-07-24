@@ -1,7 +1,6 @@
-.active {
-  background-color: #bfcdda;
-  color: black;
-}
+/* Navbar.css */
+
+/* Estilos generales para el nav */
 nav {
   display: flex;
   justify-content: space-between;
@@ -12,12 +11,15 @@ nav {
   z-index: 100;
 }
 
+/* Estilo para el título del nav */
 nav .title {
   font-size: 1.5rem;
   margin: 1rem;
   text-decoration: none;
   color: white;
 }
+
+/* Estilos para el menú de navegación */
 nav ul {
   display: flex;
   margin: 1rem;
@@ -35,10 +37,18 @@ nav ul li a {
   margin: 0 0.5rem;
 }
 
+/* Estilo para el enlace activo */
+nav ul li a.active {
+  background-color: #bfcdda;
+  color: black;
+}
+
+/* Estilo para el hover de los enlaces */
 nav ul li a:not(.active):hover {
   background-color: #343639;
 }
 
+/* Estilos para el menú hamburguesa */
 nav .menu {
   position: absolute;
   top: 1.25rem;
@@ -56,6 +66,40 @@ nav .menu span {
   border-radius: 0.2rem;
 }
 
+/* Estilos para el menú desplegable del usuario */
+.user-dropdown {
+  position: relative;
+  cursor: pointer;
+  color: white;
+}
+
+.user-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 150px;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.dropdown-menu li:hover {
+  background-color: #343639;
+}
+
+/* Media queries para responsividad */
 @media (max-width: 960px) {
   nav .menu {
     display: flex;

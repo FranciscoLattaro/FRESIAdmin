@@ -7,20 +7,29 @@ import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const cookies = new Cookies();
-    const token = cookies.get("jwt_athorization");
+    const token = cookies.get("jwt_authorization");
     if (token) {
       try {
-        const decoded = jwtDecode(token); // Usa jwt_decode aquí
+        const decoded = jwtDecode(token); // Usa jwtDecode aquí
         setUserName(decoded.name); // Asume que el nombre está en el payload del token
       } catch (err) {
         setUserName(""); // Token inválido o error en la decodificación
       }
     }
   }, []);
+
+  const handleLogout = () => {
+    const cookies = new Cookies();
+    cookies.remove("jwt_authorization"); // Remover el token
+    setUserName(""); // Resetear el estado del nombre de usuario
+    // Redirigir al usuario a la página de login o inicio
+    window.location.href = "/login";
+  };
 
   return (
     <nav>
@@ -41,7 +50,7 @@ const Navbar = () => {
         <li><NavLink to="/track/">Tracking</NavLink></li>
         <li><NavLink to="/">Facturas</NavLink></li>
         <li><NavLink to="/">Informes</NavLink></li>
-        {userName && <li className="user-name">Hola, {userName}</li>}
+        <li><NavLink onClick={handleLogout} to="/login">Cerrar Sesión</NavLink></li>
       </ul>
     </nav>
   );
