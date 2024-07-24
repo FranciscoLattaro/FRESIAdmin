@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "Fran.!34gh",
+    "database": "fresiadb1",
+    "host": "fresiadb1.ct2g2e6oymnx.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "admin",
+    "password": "Fran.!34gh",
+    "database": "fresiadb1",
+    "host": "fresiadb1.ct2g2e6oymnx.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "admin",
+    "password": "Fran.!34gh",
+    "database": "fresiadb1",
+    "host": "fresiadb1.ct2g2e6oymnx.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}

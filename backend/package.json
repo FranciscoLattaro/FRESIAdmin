@@ -1,0 +1,30 @@
+{
+  "name": "fresiaadmin-1.0",
+  "version": "1.0.0",
+  "description": "version 1.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Francisco Lattaro",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mysql2": "^3.9.2",
+    "nodemon": "^3.1.4",
+    "react": "^18.2.0",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "universal-cookie": "^7.1.4",
+    "url": "^0.11.3"
+  }
+}
