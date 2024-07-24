@@ -16,6 +16,7 @@ import SignUp from "./Componentes/Login/SignUp.jsx";
 import CompMostrarTrackings from "./Componentes/MostrarTrackings.jsx";
 import CompEditarBImp from "./Componentes/EditarBImp.jsx"; // Importa tu componente de edición
 import NotAuthenticated from "./Componentes/NotAuthenticated.jsx"
+import Facturas from "./Componentes/Facturas.jsx";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/fedex/tracking/:id/:unique" element={<Navbar />}></Route>
         <Route path="/compras/" element={<Navbar />}></Route>
         <Route path="/bimps/edit/:id" element={<Navbar />}></Route>
+        <Route path="/facturas/" element={<Navbar />}></Route>
       </Routes>
 
       <div className="container">
@@ -43,7 +45,7 @@ function App() {
               <Route path="/not-authenticated" element={<NotAuthenticated />}></Route>
               <Route path="/login/" element={<Login />}></Route>
               <Route path="/signUp/" element={<SignUp />}></Route>
-
+              <Route path="/facturas/" element={<Facturas />}></Route>
               <Route path="/bimps/" element={<CompMostrarBImp />}></Route>
               <Route path="/bimps/create" element={<CompNuevaBImp />}></Route>
               <Route
