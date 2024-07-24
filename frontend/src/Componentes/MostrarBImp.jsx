@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import BasicTableBimps from "./BasicTableBimps";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
+import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/bimps/";
 
@@ -41,6 +42,7 @@ const CompMostrarBImp = () => {
       console.error("Error deleting data:", error);
     }
   };
+  
 
   return (
     <div className="container w-100">
@@ -52,6 +54,7 @@ const CompMostrarBImp = () => {
       <Button
         className="mt-2  "
         variant="contained"
+        component={Link}
         sx={{
           backgroundColor: "#000000",
           color: "#FFFFFF",
@@ -60,7 +63,7 @@ const CompMostrarBImp = () => {
             color: "black",
           },
         }}
-        href={`/bimps/create`}
+        to={`/bimps/create`}
         startIcon={<AddIcon />}
       >
         Ingresar nueva Importación (B)

@@ -9,8 +9,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Link } from "react-router-dom";
 
-const BasicTableBimps = ({ rows, deleteFranq }) => {
+const BasicTableBimps = ({ rows, deleteRow }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -44,7 +45,8 @@ const BasicTableBimps = ({ rows, deleteFranq }) => {
               <TableCell>{row.updatedAt}</TableCell>
               <TableCell>
                 <Button
-                  href={`/bimps/edit/${row.id}`}
+                  component={Link}
+                  to={`/bimps/edit/${row.id}`}
                   variant="contained"
                   color="primary"
                   style={{
@@ -58,7 +60,7 @@ const BasicTableBimps = ({ rows, deleteFranq }) => {
                 <Button
                   variant="outlined"
                   color="error"
-                  onClick={() => deleteFranq(row.id)}
+                  onClick={() => deleteRow(row.id)}
                 >
                   <DeleteIcon />
                 </Button>
