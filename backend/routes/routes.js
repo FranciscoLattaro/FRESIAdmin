@@ -53,6 +53,9 @@ import { createUser, getAllUsers } from "../controllers/UsuariosController.js";
 //Instanciamos el enrutador
 const routes = express.Router();
 
+//Rutas relacionadas al LogIn
+routes.post("/login/in", login)
+
 //Rutas relacionadas al formulario BImportacion
 routes.get("/bimps/", getAllBImp);
 routes.get("/bimps/:id", getBImp);
