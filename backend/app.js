@@ -23,17 +23,13 @@ const __dirname = path.dirname(__filename);
 // Configurar el middleware para servir archivos estáticos desde el directorio 'uploads'
 app.use('/uploads', express.static(path.join(__dirname, 'backend/uploads')));
 
+//Conexión a BD
 try {
     db.authenticate
     console.log('Conexion exitosa a la DB')
 } catch (error) {
     console.log('El error de conexion es: ${error}')
 }
-
-// Configurar el middleware para servir archivos estáticos desde el directorio 'uploads'
-app.use('/uploads', express.static(path.join(__dirname, 'backend/uploads')));
-
-
 
 let puerto = 8000
 
