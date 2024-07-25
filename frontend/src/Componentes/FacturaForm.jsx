@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, MenuItem, Select, InputLabel, FormControl, Card, CardContent } from '@mui/material';
+import { Box, Typography, TextField, Button, MenuItem, Select, InputLabel, FormControl, Card, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { UploadFile } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ const FacturaForm = () => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('UYU');
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -25,8 +26,15 @@ const FacturaForm = () => {
     setCurrency(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleOpenConfirm = () => {
+    setOpenConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
+
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('description', description);
@@ -34,22 +42,28 @@ const FacturaForm = () => {
     formData.append('currency', currency);
 
     try {
-      const response = await axios.post('http://localhost:8000/upload', formData, {
+      const response = await axios.post('http://localhost:8000/factura/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       console.log('File uploaded successfully:', response.data);
+      // Reset form
+      setFile(null);
+      setDescription('');
+      setAmount('');
+      setCurrency('UYU');
     } catch (error) {
       console.error('Error uploading file:', error);
+    } finally {
+      handleCloseConfirm();
     }
   };
 
   return (
     <Card>
       <CardContent>
-        
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => { e.preventDefault(); handleOpenConfirm(); }}>
           <input
             accept="image/*"
             id="file-upload"
@@ -101,6 +115,28 @@ const FacturaForm = () => {
           </Button>
         </form>
       </CardContent>
+
+      <Dialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Confirmar Subida"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Estás seguro de que deseas subir este archivo?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleSubmit} color="primary" autoFocus>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };

@@ -50,7 +50,7 @@ const Navbar = () => {
         <li><NavLink to="/suites/">Suites PM</NavLink></li>
         <li><NavLink to="/track/">Tracking</NavLink></li>
         <li><NavLink to="/facturas">Facturas</NavLink></li>
-        <li><NavLink to="/">Informes</NavLink></li>
+        <li><NavLink to="/informes/">Informes</NavLink></li>
         <li><NavLink onClick={handleLogout} to="/login"><LogoutIcon></LogoutIcon> Salir</NavLink></li>
       </ul>
     </nav>

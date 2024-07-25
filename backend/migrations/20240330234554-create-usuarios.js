@@ -22,6 +22,11 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      verificado: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "no verificado"
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
