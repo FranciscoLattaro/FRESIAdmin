@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useAuth } from "./utils/AuthContext.js";
-import useAuthRedirect from "./utils/useAuthRedirect.js";
 
 const URI = "http://localhost:8000/bimps/";
 
@@ -42,7 +40,7 @@ const CompEditarBImp = () => {
 
   useEffect(() => {
     getBImpById();
-  }, []);
+  }, );
 
   // Procedimiento para actualizar
   const update = async (e) => {

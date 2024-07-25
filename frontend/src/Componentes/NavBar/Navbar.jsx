@@ -8,8 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [userName, setUserName] = useState("");
+
 
   useEffect(() => {
     const cookies = new Cookies();

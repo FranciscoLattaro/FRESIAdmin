@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useAuth } from "./utils/AuthContext.js";
-import useAuthRedirect from "./utils/useAuthRedirect.js";
+
 
 const URI = "http://localhost:8000/bimps/create/";
 

@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BasicTableEimps from "./BasicTableEimps";
@@ -10,11 +9,7 @@ import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/eimps/";
 
-const theme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+
 
 const CompMostrarEImp = () => {
   const [eimps, setEimps] = useState([]);
