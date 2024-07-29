@@ -25,6 +25,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
     "dayjs": "^1.11.12",
     "font-awesome": "^4.7.0",
     "fontawesome": "^5.6.3",
@@ -43,7 +44,7 @@
     "rimraf": "^6.0.1",
     "universal-cookie": "^7.2.0",
     "web-vitals": "^4.2.2",
-    "workbox-cacheable-response": "^7.1.0",
+b    "workbox-cacheable-response": "^7.1.0",
     "workbox-google-analytics": "^7.1.0"
   },
   "scripts": {
