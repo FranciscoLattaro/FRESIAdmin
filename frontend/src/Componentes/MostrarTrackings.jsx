@@ -18,7 +18,7 @@ const CompMostrarTrackings = () => {
   const [trackings, setTracking] = useState([]);
   const { user } = useAuth(); // Obtener el usuario autenticado
   useAuthRedirect(user); //Redirigir si no está autenticado
-  
+
   useEffect(() => {
     getTrackings();
   }, []);
@@ -44,9 +44,9 @@ const CompMostrarTrackings = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className="container w-100">
-        <h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
+        {/*<h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
           Historial de Trackings
-        </h3>
+        </h3>*/}
         <BasicTableTracking rows={trackings} deleteTracking={deleteTracking} />
         <Button
           component={Link}
@@ -71,4 +71,3 @@ const CompMostrarTrackings = () => {
 };
 
 export default CompMostrarTrackings;
-

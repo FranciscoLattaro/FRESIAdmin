@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/eimps/";
 
-
-
 const CompMostrarEImp = () => {
   const [eimps, setEimps] = useState([]);
   const { user } = useAuth(); // Obtener el usuario autenticado
@@ -44,9 +42,9 @@ const CompMostrarEImp = () => {
 
   return (
     <div>
-      <h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
+      {/*<h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
         Historial de Importaciones (Específica)
-      </h3>
+      </h3>*/}
       <BasicTableEimps rows={eimps} deleteEimps={deleteEimps} />
       <Button
         component={Link}

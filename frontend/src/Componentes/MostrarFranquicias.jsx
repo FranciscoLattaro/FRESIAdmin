@@ -8,7 +8,6 @@ import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { Link } from "react-router-dom";
 const URI = "http://localhost:8000/suites/";
 
-
 const CompMostrarFranquicias = () => {
   const [franqs, setFranqs] = useState([]);
   const { user } = useAuth(); // Obtener el usuario autenticado
@@ -38,9 +37,9 @@ const CompMostrarFranquicias = () => {
 
   return (
     <div className="container mb-5">
-      <h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
+      {/*<h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
         Historial de Suites
-      </h3>
+      </h3>*/}
       {/* <div className="row border border-dark rounded-3 mt-3 shadow p-2 bg-forms">
         <div className="col overflow-scroll">*/}
 

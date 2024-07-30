@@ -35,13 +35,12 @@ const CompMostrarBImp = () => {
       console.error("Error deleting data:", error);
     }
   };
-  
 
   return (
     <div className="container w-100">
-      <h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
+      {/*<h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
         Historial de Importaciones (Básicas)
-      </h3>
+      </h3>*/}
       <BasicTableBimps rows={bimps} deleteRow={deleteBimps} />
 
       <Button

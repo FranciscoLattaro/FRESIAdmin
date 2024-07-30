@@ -15,13 +15,19 @@ import Login from "./Componentes/Login/Login.jsx";
 import SignUp from "./Componentes/Login/SignUp.jsx";
 import CompMostrarTrackings from "./Componentes/MostrarTrackings.jsx";
 import CompEditarBImp from "./Componentes/EditarBImp.jsx"; // Importa tu componente de edición
-import NotAuthenticated from "./Componentes/NotAuthenticated.jsx"
+import NotAuthenticated from "./Componentes/NotAuthenticated.jsx";
 import Facturas from "./Componentes/Facturas.jsx";
 import Informe from "./Componentes/informes.jsx";
+import MainComponent from "./Componentes/MainComponent.jsx";
+import { Global } from "@emotion/react";
+import GlobalZoomStyles from "./GlobalStyles.js";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   return (
     <div className="App">
+      <CssBaseline />
+      <GlobalZoomStyles></GlobalZoomStyles>
       <Routes>
         <Route path="/" element={<Navbar />}></Route>
         <Route path="/bimps/" element={<Navbar />}></Route>
@@ -37,6 +43,7 @@ function App() {
         <Route path="/bimps/edit/:id" element={<Navbar />}></Route>
         <Route path="/facturas/" element={<Navbar />}></Route>
         <Route path="/informes/" element={<Navbar />}></Route>
+        <Route path="/main/" element={<Navbar />}></Route>
       </Routes>
 
       <div className="container">
@@ -44,7 +51,11 @@ function App() {
           <div className="col">
             <Routes>
               <Route path="/" element={<CompMostrarBImp />}></Route>
-              <Route path="/not-authenticated" element={<NotAuthenticated />}></Route>
+              <Route
+                path="/not-authenticated"
+                element={<NotAuthenticated />}
+              ></Route>
+              <Route path="/main/" element={<MainComponent />}></Route>
               <Route path="/login/" element={<Login />}></Route>
               <Route path="/signUp/" element={<SignUp />}></Route>
               <Route path="/facturas/" element={<Facturas />}></Route>

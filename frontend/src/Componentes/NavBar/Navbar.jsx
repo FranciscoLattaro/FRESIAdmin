@@ -4,14 +4,14 @@ import { Link, NavLink } from "react-router-dom";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 import Cookies from "universal-cookie";
 import { jwtDecode } from "jwt-decode";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, ] = useState(false);
+  const [dropdownOpen] = useState(false);
   const [userName, setUserName] = useState("");
 
-  console.log(dropdownOpen + userName)
+  console.log(dropdownOpen + userName);
   useEffect(() => {
     const cookies = new Cookies();
     const token = cookies.get("jwt_authorization");
@@ -45,14 +45,21 @@ const Navbar = () => {
         <span></span>
       </div>
       <ul className={menuOpen ? "open" : "closed"}>
-        <li><NavLink to="/">Inicio</NavLink></li>
-        <li><NavLink to="/bimps/">Historial de Importaciones (B)</NavLink></li>
-        <li><NavLink to="/eimps/">Historial de Importaciones (E)</NavLink></li>
-        <li><NavLink to="/suites/">Suites PM</NavLink></li>
-        <li><NavLink to="/track/">Tracking</NavLink></li>
-        <li><NavLink to="/facturas">Facturas</NavLink></li>
-        <li><NavLink to="/informes/">Informes</NavLink></li>
-        <li><NavLink onClick={handleLogout} to="/login"><LogoutIcon></LogoutIcon> Salir</NavLink></li>
+        <li>
+          <NavLink to="/main/">Menú Principal</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/facturas">Facturas</NavLink>
+        </li>
+        <li>
+          <NavLink to="/informes/">Informes</NavLink>
+        </li>
+        <li>
+          <NavLink onClick={handleLogout} to="/login">
+            <LogoutIcon></LogoutIcon> Salir
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
