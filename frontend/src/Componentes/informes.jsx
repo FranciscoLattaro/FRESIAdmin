@@ -6,6 +6,7 @@ const Informe = () => {
   const [facturas, setFacturas] = useState([]);
   const [gastos, setGastos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const conversionRate = 40; // Suponiendo una tasa de conversión de 1 USD a 40 UYU
 
   useEffect(() => {
     const fetchFacturas = async () => {
@@ -36,9 +37,11 @@ const Informe = () => {
     fetchData();
   }, []);
 
-  const calculateTotal = () => {
-    const totalFacturas = facturas.reduce((sum, factura) => sum + parseFloat(factura.amount), 0);
-    const totalGastos = gastos.reduce((sum, gasto) => sum + parseFloat(gasto.amount), 0);
+  const calculateTotal = (currency) => {
+    const facturasFiltered = facturas.filter(factura => factura.currency === currency);
+    const gastosFiltered = gastos.filter(gasto => gasto.currency === currency);
+    const totalFacturas = facturasFiltered.reduce((sum, factura) => sum + parseFloat(factura.amount), 0);
+    const totalGastos = gastosFiltered.reduce((sum, gasto) => sum + parseFloat(gasto.amount), 0);
     return totalFacturas - totalGastos;
   };
 
@@ -51,6 +54,11 @@ const Informe = () => {
     return <CircularProgress />;
   }
 
+  const totalNetoPesos = calculateTotal('UYU');
+  const totalNetoDolares = calculateTotal('USD');
+  const totalNetoDolaresEnPesos = totalNetoDolares * conversionRate;
+  const totalNetoGlobalEnPesos = totalNetoPesos + totalNetoDolaresEnPesos;
+
   return (
     <Card>
       <CardContent>
@@ -59,30 +67,60 @@ const Informe = () => {
         </Typography>
         
         <Typography variant="h6" gutterBottom>
-          Facturas
+          Facturas en Pesos Uruguayos
         </Typography>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
-              <TableCell>Moneda</TableCell>
               <TableCell>Imagen</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {facturas.map((factura) => (
+            {facturas.filter(factura => factura.currency === 'UYU').map((factura) => (
               <TableRow key={factura.id}>
                 <TableCell>{factura.description}</TableCell>
                 <TableCell>{factura.amount}</TableCell>
-                <TableCell>{factura.currency}</TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => handleOpenImage(factura.filePath)}
                   >
-                    Ver Imagen
+                    Ver factura
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Typography className='mt-3' variant="h6" gutterBottom>
+          Total Neto en Pesos Uruguayos: {totalNetoPesos.toFixed(2)}
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Facturas en Dólares
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Descripción</TableCell>
+              <TableCell>Monto</TableCell>
+              <TableCell>Imagen</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {facturas.filter(factura => factura.currency === 'USD').map((factura) => (
+              <TableRow key={factura.id}>
+                <TableCell>{factura.description}</TableCell>
+                <TableCell>{factura.amount}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleOpenImage(factura.filePath)}
+                  >
+                    Ver factura
                   </Button>
                 </TableCell>
               </TableRow>
@@ -90,8 +128,15 @@ const Informe = () => {
           </TableBody>
         </Table>
 
+        
         <Typography className='mt-3' variant="h6" gutterBottom>
-          Total Neto: {calculateTotal().toFixed(2)}
+          Total Neto en Dólares: {totalNetoDolares.toFixed(2)}
+        </Typography>
+        <Typography className='mt-3' variant="h6" gutterBottom>
+          Total Neto en Dólares convertido a Pesos Uruguayos: {totalNetoDolaresEnPesos.toFixed(2)}
+        </Typography>
+        <Typography className='mt-3' variant="h6" gutterBottom>
+          Suma Total Neto en Pesos Uruguayos: {totalNetoGlobalEnPesos.toFixed(2)}
         </Typography>
       </CardContent>
     </Card>
