@@ -17,6 +17,7 @@ const Informe = () => {
   const [facturas, setFacturas] = useState([]);
   const [gastos, setGastos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const conversionRate = 40; // Suponiendo una tasa de conversión de 1 USD a 40 UYU
 
   useEffect(() => {
     const fetchFacturas = async () => {
@@ -70,6 +71,11 @@ const Informe = () => {
     return <CircularProgress />;
   }
 
+  const totalNetoPesos = calculateTotal("UYU");
+  const totalNetoDolares = calculateTotal("USD");
+  const totalNetoDolaresEnPesos = totalNetoDolares * conversionRate;
+  const totalNetoGlobalEnPesos = totalNetoPesos + totalNetoDolaresEnPesos;
+
   return (
     <Card>
       <CardContent>
@@ -78,34 +84,68 @@ const Informe = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
-          Facturas
+          Facturas en Pesos Uruguayos
         </Typography>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
-              <TableCell>Moneda</TableCell>
               <TableCell>Imagen</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {facturas.map((factura) => (
-              <TableRow key={factura.id}>
-                <TableCell>{factura.description}</TableCell>
-                <TableCell>{factura.amount}</TableCell>
-                <TableCell>{factura.currency}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleOpenImage(factura.filePath)}
-                  >
-                    Ver Imagen
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {facturas
+              .filter((factura) => factura.currency === "UYU")
+              .map((factura) => (
+                <TableRow key={factura.id}>
+                  <TableCell>{factura.description}</TableCell>
+                  <TableCell>{factura.amount}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleOpenImage(factura.filePath)}
+                    >
+                      Ver factura
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+        <Typography className="mt-3" variant="h6" gutterBottom>
+          Total Neto en Pesos Uruguayos: {totalNetoPesos.toFixed(2)}
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Facturas en Dólares
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Descripción</TableCell>
+              <TableCell>Monto</TableCell>
+              <TableCell>Imagen</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {facturas
+              .filter((factura) => factura.currency === "USD")
+              .map((factura) => (
+                <TableRow key={factura.id}>
+                  <TableCell>{factura.description}</TableCell>
+                  <TableCell>{factura.amount}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleOpenImage(factura.filePath)}
+                    >
+                      Ver factura
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
 
