@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Tabs, Tab, Box, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import MostrarBImp from "./MostrarBImp";
 import MostrarEImp from "./MostrarEImp";
 import MostrarTrackings from "./MostrarTrackings";
@@ -25,16 +24,6 @@ const TabPanel = ({ children, value, index, ...other }) => {
   );
 };
 
-const StyledAppBar = styled(AppBar)({
-  backgroundColor: "rgba(0, 0, 0, 0.2)",
-});
-
-const StyledTab = styled(Tab)({
-  color: "black",
-  textTransform: "none",
-  fontSize: "1em",
-});
-
 const MainComponent = () => {
   const [value, setValue] = useState(0);
 
@@ -43,32 +32,34 @@ const MainComponent = () => {
   };
 
   return (
-    <div>
-      <StyledAppBar position="static">
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <StyledTab label="Importaciones (B)" id="tab-0" />
-          <StyledTab label="Importaciones (E)" id="tab-1" />
-          <StyledTab label="Trackings" id="tab-2" />
-          <StyledTab label="Suites PM" id="tab-3" />
+          <Tab label="Importaciones (B)" />
+          <Tab label="Importaciones (E)" />
+          <Tab label="Trackings" />
+          <Tab label="Suites PM" />
         </Tabs>
-      </StyledAppBar>
-      <TabPanel value={value} index={0}>
-        <MostrarBImp />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <MostrarEImp />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <MostrarTrackings />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <MostrarFranquicias />
-      </TabPanel>
-    </div>
+      </Box>
+      <Box sx={{ p: 3 }}>
+        <TabPanel value={value} index={0}>
+          <MostrarBImp />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <MostrarEImp />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <MostrarTrackings />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <MostrarFranquicias />
+        </TabPanel>
+      </Box>
+    </Box>
   );
 };
 

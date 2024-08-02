@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 const URI = "http://localhost:8000/track/create/";
 
 const theme = createTheme({
@@ -36,7 +35,7 @@ const CompNuevoTracking = () => {
       id_EImportacion: id_EImportacion,
       id_estado: id_estado,
     });
-    navigate("/track/");
+    navigate("/menu/");
   };
 
   return (

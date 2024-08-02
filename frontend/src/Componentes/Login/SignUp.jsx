@@ -26,7 +26,7 @@ const SignUp = () => {
       setError("La contraseña debe tener al menos 6 caracteres");
       return;
     }
-    
+
     setLoading(true);
     setError("");
     setSuccess("");
@@ -41,9 +41,9 @@ const SignUp = () => {
         email: email,
         password: hashedPassword,
       });
-      
+
       setSuccess("Registro exitoso, redirigiendo...");
-      setTimeout(() => navigate("/bimps"), 2000);
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       console.error(err);
       setError("Error al registrar el usuario. Inténtalo de nuevo.");
@@ -67,12 +67,18 @@ const SignUp = () => {
                           FRESIAdmin - Crear una Nueva Cuenta
                         </h1>
                       </div>
-                      {error && <div className="alert alert-danger">{error}</div>}
-                      {success && <div className="alert alert-success">{success}</div>}
+                      {error && (
+                        <div className="alert alert-danger">{error}</div>
+                      )}
+                      {success && (
+                        <div className="alert alert-success">{success}</div>
+                      )}
                       <form onSubmit={handleSubmit}>
                         <div className="form-outline mb-4">
                           <input
-                            onChange={(event) => setNombreCompleto(event.target.value)}
+                            onChange={(event) =>
+                              setNombreCompleto(event.target.value)
+                            }
                             type="text"
                             value={nombreCompleto}
                             id="nombreCompleto"
@@ -105,7 +111,9 @@ const SignUp = () => {
                         </div>
                         <div className="form-outline mb-4">
                           <input
-                            onChange={(event) => setConfirmPass(event.target.value)}
+                            onChange={(event) =>
+                              setConfirmPass(event.target.value)
+                            }
                             type="password"
                             id="confirmPassword"
                             value={confirmPassword}

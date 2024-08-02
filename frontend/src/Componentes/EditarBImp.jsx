@@ -40,7 +40,7 @@ const CompEditarBImp = () => {
 
   useEffect(() => {
     getBImpById();
-  }, );
+  });
 
   // Procedimiento para actualizar
   const update = async (e) => {
@@ -54,7 +54,7 @@ const CompEditarBImp = () => {
       procesado: procesado,
       id_EImportacion: id_EImportacion,
     });
-    navigate("/bimps");
+    navigate("/menu");
   };
 
   return (

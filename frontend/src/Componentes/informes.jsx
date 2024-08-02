@@ -1,6 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  CircularProgress,
+} from "@mui/material";
+import axios from "axios";
 
 const Informe = () => {
   const [facturas, setFacturas] = useState([]);
@@ -10,19 +21,21 @@ const Informe = () => {
   useEffect(() => {
     const fetchFacturas = async () => {
       try {
-        const facturasResponse = await axios.get('http://localhost:8000/facturas');
+        const facturasResponse = await axios.get(
+          "http://localhost:8000/facturas"
+        );
         setFacturas(facturasResponse.data);
       } catch (error) {
-        console.error('Error fetching facturas:', error);
+        console.error("Error fetching facturas:", error);
       }
     };
 
     const fetchGastos = async () => {
       try {
-        const gastosResponse = await axios.get('http://localhost:8000/gastos');
+        const gastosResponse = await axios.get("http://localhost:8000/gastos");
         setGastos(gastosResponse.data);
       } catch (error) {
-        console.error('Error fetching gastos:', error);
+        console.error("Error fetching gastos:", error);
       }
     };
 
@@ -37,14 +50,20 @@ const Informe = () => {
   }, []);
 
   const calculateTotal = () => {
-    const totalFacturas = facturas.reduce((sum, factura) => sum + parseFloat(factura.amount), 0);
-    const totalGastos = gastos.reduce((sum, gasto) => sum + parseFloat(gasto.amount), 0);
+    const totalFacturas = facturas.reduce(
+      (sum, factura) => sum + parseFloat(factura.amount),
+      0
+    );
+    const totalGastos = gastos.reduce(
+      (sum, gasto) => sum + parseFloat(gasto.amount),
+      0
+    );
     return totalFacturas - totalGastos;
   };
 
   const handleOpenImage = (filePath) => {
     const imageUrl = `http://localhost:8000/${filePath}`;
-    window.open(imageUrl, '_blank');
+    window.open(imageUrl, "_blank");
   };
 
   if (loading) {
@@ -57,7 +76,7 @@ const Informe = () => {
         <Typography variant="h5" gutterBottom>
           Informe de Facturas y Gastos
         </Typography>
-        
+
         <Typography variant="h6" gutterBottom>
           Facturas
         </Typography>
@@ -90,7 +109,7 @@ const Informe = () => {
           </TableBody>
         </Table>
 
-        <Typography className='mt-3' variant="h6" gutterBottom>
+        <Typography className="mt-3" variant="h6" gutterBottom>
           Total Neto: {calculateTotal().toFixed(2)}
         </Typography>
       </CardContent>

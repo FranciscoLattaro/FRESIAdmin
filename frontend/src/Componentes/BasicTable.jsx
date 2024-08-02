@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import TablePagination from "@mui/material/TablePagination";
+import "./estilos.css";
 
 // Styled component for TableRow with margin
 const StyledTableRow = styled(TableRow)({
@@ -38,7 +39,7 @@ const BasicTable = ({ rows, deleteFranq }) => {
 
   return (
     <div className="container w-100">
-      <div className="row">
+      <div className="row ">
         <TableContainer className="col-12" component={Paper}>
           <Table sx={{ minWidth: 800 }} aria-label="simple table">
             <TableHead>

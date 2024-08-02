@@ -75,7 +75,7 @@ const CompNuevaEImp = () => {
       emp_tr_5: emp_tr_5,
       estado_tracking_5: estado_tracking_5,
     });
-    navigate("/eimps");
+    navigate("/menu");
   };
 
   return (

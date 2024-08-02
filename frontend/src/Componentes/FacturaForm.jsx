@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import {  Typography, TextField, Button, MenuItem, Select, InputLabel, FormControl, Card, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { UploadFile } from '@mui/icons-material';
-import axios from 'axios';
+import React, { useState } from "react";
+import {
+  Typography,
+  TextField,
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Card,
+  CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import { UploadFile } from "@mui/icons-material";
+import axios from "axios";
 
 const FacturaForm = () => {
   const [file, setFile] = useState(null);
-  const [description, setDescription] = useState('');
-  const [amount, setAmount] = useState('');
-  const [currency, setCurrency] = useState('UYU');
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState("UYU");
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const handleFileChange = (event) => {
@@ -36,25 +51,29 @@ const FacturaForm = () => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('description', description);
-    formData.append('amount', amount);
-    formData.append('currency', currency);
+    formData.append("file", file);
+    formData.append("description", description);
+    formData.append("amount", amount);
+    formData.append("currency", currency);
 
     try {
-      const response = await axios.post('http://localhost:8000/factura/create', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('File uploaded successfully:', response.data);
+      const response = await axios.post(
+        "http://localhost:8000/factura/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("File uploaded successfully:", response.data);
       // Reset form
       setFile(null);
-      setDescription('');
-      setAmount('');
-      setCurrency('UYU');
+      setDescription("");
+      setAmount("");
+      setCurrency("UYU");
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error("Error uploading file:", error);
     } finally {
       handleCloseConfirm();
     }
@@ -63,12 +82,17 @@ const FacturaForm = () => {
   return (
     <Card>
       <CardContent>
-        <form onSubmit={(e) => { e.preventDefault(); handleOpenConfirm(); }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleOpenConfirm();
+          }}
+        >
           <input
             accept="image/*"
             id="file-upload"
             type="file"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={handleFileChange}
           />
           <label htmlFor="file-upload">

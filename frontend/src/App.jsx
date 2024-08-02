@@ -43,7 +43,7 @@ function App() {
         <Route path="/bimps/edit/:id" element={<Navbar />}></Route>
         <Route path="/facturas/" element={<Navbar />}></Route>
         <Route path="/informes/" element={<Navbar />}></Route>
-        <Route path="/main/" element={<Navbar />}></Route>
+        <Route path="/menu/" element={<Navbar />}></Route>
       </Routes>
 
       <div className="container">
@@ -55,7 +55,7 @@ function App() {
                 path="/not-authenticated"
                 element={<NotAuthenticated />}
               ></Route>
-              <Route path="/main/" element={<MainComponent />}></Route>
+              <Route path="/menu/" element={<MainComponent />}></Route>
               <Route path="/login/" element={<Login />}></Route>
               <Route path="/signUp/" element={<SignUp />}></Route>
               <Route path="/facturas/" element={<Facturas />}></Route>

@@ -46,7 +46,7 @@ const Navbar = () => {
       </div>
       <ul className={menuOpen ? "open" : "closed"}>
         <li>
-          <NavLink to="/main/">Menú Principal</NavLink>
+          <NavLink to="/menu/">Menú Principal</NavLink>
         </li>
 
         <li>

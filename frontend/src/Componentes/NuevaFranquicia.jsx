@@ -6,7 +6,6 @@ import { TextField, FormGroup } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 const URI = "http://localhost:8000/suites/create/";
 
 const theme = createTheme({
@@ -39,7 +38,7 @@ const CompNuevaFranquicia = () => {
       suite_fr: suite_fr,
       activa: activa,
     });
-    navigate("/suites/");
+    navigate("/menu/");
   };
 
   return (
@@ -63,8 +62,6 @@ const CompNuevaFranquicia = () => {
             onChange={(e) => setCedulaDeIdentidad(e.target.value)}
             type="password"
           />
-
-          
 
           <TextField
             className="mb-3"

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { TextField, FormGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 const URI = "http://localhost:8000/bimps/create/";
 
 const theme = createTheme({
@@ -38,7 +37,7 @@ const CompNuevaBImp = () => {
       procesado: procesado,
       id_EImportacion: id_EImportacion,
     });
-    navigate("/bimps");
+    navigate("/menu");
   };
 
   return (
