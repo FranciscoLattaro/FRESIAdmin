@@ -66,8 +66,8 @@ const BasicTableTracking = ({ rows, deleteTracking }) => {
                     <TableCell>{row.id_Franquicia}</TableCell>
                     <TableCell>{row.id_EImportacion}</TableCell>
                     <TableCell>{row.id_estado}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
-                    <TableCell>{row.updatedAt}</TableCell>
+                    <TableCell>{row.createdAt.slice(0,10)}</TableCell>
+                    <TableCell>{row.updatedAt.slice(0,10)}</TableCell>
                     <TableCell>
                       <Button
                         component={Link}

@@ -48,12 +48,12 @@ const CompMostrarBImp = () => {
         variant="contained"
         component={Link}
         sx={{
-          backgroundColor: "#000000",
+          backgroundColor: "success",
           color: "#FFFFFF",
-          "&:hover": {
+          /*"&:hover": {
             backgroundColor: "darkgrey",
             color: "black",
-          },
+          },*/
         }}
         to={`/bimps/create`}
         startIcon={<AddIcon />}

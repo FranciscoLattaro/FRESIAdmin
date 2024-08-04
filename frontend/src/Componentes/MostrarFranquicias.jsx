@@ -50,12 +50,12 @@ const CompMostrarFranquicias = () => {
         className="mt-2  "
         variant="contained"
         sx={{
-          backgroundColor: "#000000",
+          backgroundColor: "success",
           color: "#FFFFFF",
-          "&:hover": {
+          /*"&:hover": {
             backgroundColor: "darkgrey",
             color: "black",
-          },
+          },*/
         }}
         to={`/suites/create`}
         startIcon={<AddIcon />}

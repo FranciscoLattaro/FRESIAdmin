@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext.js";
 import "../estilos.css";
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 
 const Login = () => {
   const { login } = useAuth();
@@ -28,7 +29,7 @@ const Login = () => {
   return (
     <div className="mt-5">
       <section className="h-80 gradient-form">
-        <div>
+        <div className="login-container">
           <div className="row d-flex justify-content-center align-items-center h-50">
             <div className="col-xl-9">
               <div className="card rounded-3 shadow text-black">
@@ -37,6 +38,7 @@ const Login = () => {
                     <div className="card-body p-md-5 mx-md-2">
                       <div className="text-center">
                         <h1 className="mt-1 mb-4 pb-1 logoFresia">
+                        <LocalFloristIcon className="mx-2" sx={{ fontSize: 40 }} />
                           FRESIAdmin
                         </h1>
                       </div>
@@ -93,8 +95,9 @@ const Login = () => {
                       </form>
                     </div>
                   </div>
-                  <div className="col-lg-6 d-flex align-items-center bg-light">
+                  <div className="col-lg-6 d-flex align-items-center bg-1">
                     {/* Puedes agregar contenido adicional aquí */}
+                    
                   </div>
                 </div>
               </div>

@@ -10,13 +10,19 @@ import {
   TableRow,
   Button,
   CircularProgress,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
+import dayjs from "dayjs";
 
 const Informe = () => {
   const [facturas, setFacturas] = useState([]);
   const [gastos, setGastos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [searchDescription, setSearchDescription] = useState("");
+  const [searchAmount, setSearchAmount] = useState("");
   const conversionRate = 40; // Suponiendo una tasa de conversión de 1 USD a 40 UYU
 
   useEffect(() => {
@@ -50,16 +56,41 @@ const Informe = () => {
     fetchData();
   }, []);
 
-  const calculateTotal = () => {
-    const totalFacturas = facturas.reduce(
-      (sum, factura) => sum + parseFloat(factura.amount),
-      0
+  const filterByDateRange = (items) => {
+    if (!startDate || !endDate) return items;
+    return items.filter((item) => {
+      const itemDate = dayjs(item.createdAt);
+      return itemDate.isAfter(dayjs(startDate)) && itemDate.isBefore(dayjs(endDate));
+    });
+  };
+
+  const filterByDescription = (items) => {
+    if (!searchDescription) return items;
+    return items.filter((item) =>
+      item.description.toLowerCase().includes(searchDescription.toLowerCase())
     );
-    const totalGastos = gastos.reduce(
-      (sum, gasto) => sum + parseFloat(gasto.amount),
-      0
-    );
-    return totalFacturas - totalGastos;
+  };
+
+  const filterByAmount = (items) => {
+    if (!searchAmount) return items;
+    return items.filter((item) => item.amount.toString().includes(searchAmount));
+  };
+
+  const applyFilters = (items) => {
+    let filteredItems = filterByDateRange(items);
+    filteredItems = filterByDescription(filteredItems);
+    filteredItems = filterByAmount(filteredItems);
+    return filteredItems;
+  };
+
+  const filteredFacturas = applyFilters(facturas);
+  const filteredGastos = applyFilters(gastos);
+
+  const calculateTotal = (items, currency) => {
+    const totalFacturas = items
+      .filter((item) => item.currency === currency)
+      .reduce((sum, item) => sum + parseFloat(item.amount), 0);
+    return totalFacturas;
   };
 
   const handleOpenImage = (filePath) => {
@@ -71,17 +102,52 @@ const Informe = () => {
     return <CircularProgress />;
   }
 
-  const totalNetoPesos = calculateTotal("UYU");
-  const totalNetoDolares = calculateTotal("USD");
+  const totalNetoPesos = calculateTotal(filteredFacturas, "UYU");
+  const totalNetoDolares = calculateTotal(filteredFacturas, "USD");
   const totalNetoDolaresEnPesos = totalNetoDolares * conversionRate;
   const totalNetoGlobalEnPesos = totalNetoPesos + totalNetoDolaresEnPesos;
 
   return (
-    <Card>
+    <Card className="mb-5">
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" className="text-end mb-5" gutterBottom>
           Informe de Facturas y Gastos
         </Typography>
+
+        <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+          <TextField
+            label="Desde"
+            type="datetime-local"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            label="Hasta"
+            type="datetime-local"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            style={{ marginLeft: "20px" }}
+          />
+          <TextField
+            label="Buscar por Descripción"
+            value={searchDescription}
+            onChange={(e) => setSearchDescription(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+          <TextField
+            label="Buscar por Monto"
+            value={searchAmount}
+            onChange={(e) => setSearchAmount(e.target.value)}
+            style={{marginLeft: "20px"}}
+          />
+        </div>
+        
 
         <Typography variant="h6" gutterBottom>
           Facturas en Pesos Uruguayos
@@ -92,10 +158,11 @@ const Informe = () => {
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
               <TableCell>Imagen</TableCell>
+              <TableCell>Fecha de Creación</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {facturas
+            {filteredFacturas
               .filter((factura) => factura.currency === "UYU")
               .map((factura) => (
                 <TableRow key={factura.id}>
@@ -110,13 +177,15 @@ const Informe = () => {
                       Ver factura
                     </Button>
                   </TableCell>
+                  <TableCell>{factura.createdAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
-        <Typography className="mt-3" variant="h6" gutterBottom>
-          Total Neto en Pesos Uruguayos: {totalNetoPesos.toFixed(2)}
+        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
+          Total UYU: {totalNetoPesos.toFixed(2)}
         </Typography>
+
         <Typography variant="h6" gutterBottom>
           Facturas en Dólares
         </Typography>
@@ -126,10 +195,11 @@ const Informe = () => {
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
               <TableCell>Imagen</TableCell>
+              <TableCell>Fecha de Creación</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {facturas
+            {filteredFacturas
               .filter((factura) => factura.currency === "USD")
               .map((factura) => (
                 <TableRow key={factura.id}>
@@ -144,13 +214,17 @@ const Informe = () => {
                       Ver factura
                     </Button>
                   </TableCell>
+                  <TableCell>{factura.createdAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
 
-        <Typography className="mt-3" variant="h6" gutterBottom>
-          Total Neto: {calculateTotal().toFixed(2)}
+        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
+          Total USD (conv. UYU): {totalNetoDolaresEnPesos.toFixed(2)}
+        </Typography>
+        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
+          Total: {totalNetoGlobalEnPesos.toFixed(2)}
         </Typography>
       </CardContent>
     </Card>

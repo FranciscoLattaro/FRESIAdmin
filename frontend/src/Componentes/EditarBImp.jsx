@@ -127,7 +127,7 @@ const CompEditarBImp = () => {
             onChange={(e) => setIdEImportacion(e.target.value)}
             type="text"
           />
-          <button type="submit" className="btn btn-dark">
+          <button type="submit" className="btn btn-success">
             Actualizar Información
           </button>
         </FormGroup>

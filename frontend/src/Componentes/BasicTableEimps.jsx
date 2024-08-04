@@ -91,8 +91,8 @@ const BasicTableEimps = ({ rows, deleteEimps }) => {
                       <TableCell>{row.nros_shein}</TableCell>
                       <TableCell>{row.detalle_compra}</TableCell>
                       <TableCell>{row.tarjeta}</TableCell>
-                      <TableCell>{row.createdAt}</TableCell>
-                      <TableCell>{row.updatedAt}</TableCell>
+                      <TableCell>{row.createdAt.slice(0,10)}</TableCell>
+                      <TableCell>{row.updatedAt.slice(0,10)}</TableCell>
                       <TableCell>
                         <Button
                           component={Link}

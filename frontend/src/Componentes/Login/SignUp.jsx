@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import "../estilos.css";
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import {Typography} from "@mui/material"
+
 import { useNavigate } from "react-router-dom";
 
 const URI = "http://localhost:8000/user/create";
@@ -63,9 +66,11 @@ const SignUp = () => {
                   <div className="col-lg-6">
                     <div className="card-body p-md-5 mx-md-2">
                       <div className="text-center">
-                        <h1 className="mt-1 mb-4 pb-1 logoFresia">
+                        <Typography sx={{ fontSize: 40 }} className="mt-1 mb-4 pb-1 logoFresia">
+                        <LocalFloristIcon className="mx-2" sx={{ fontSize: 40 }} />
+
                           FRESIAdmin - Crear una Nueva Cuenta
-                        </h1>
+                        </Typography>
                       </div>
                       {error && (
                         <div className="alert alert-danger">{error}</div>

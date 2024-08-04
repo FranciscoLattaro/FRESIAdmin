@@ -63,8 +63,8 @@ const BasicTableBimps = ({ rows, deleteRow }) => {
                     <TableCell>{row.nro_shein}</TableCell>
                     <TableCell>{row.procesado}</TableCell>
                     <TableCell>{row.id_EImportacion}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
-                    <TableCell>{row.updatedAt}</TableCell>
+                    <TableCell>{row.createdAt.slice(0,10)}</TableCell>
+                    <TableCell>{row.updatedAt.slice(0,10)}</TableCell>
                     <TableCell>
                       <Button
                         component={Link}

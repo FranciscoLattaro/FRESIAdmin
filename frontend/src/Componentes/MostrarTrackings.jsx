@@ -53,12 +53,12 @@ const CompMostrarTrackings = () => {
           className="mt-2"
           variant="contained"
           sx={{
-            backgroundColor: "#000000",
+            backgroundColor: "success",
             color: "#FFFFFF",
-            "&:hover": {
+            /*"&:hover": {
               backgroundColor: "darkgrey",
               color: "black",
-            },
+            },*/
           }}
           to={`/track/create`}
           startIcon={<AddIcon />}
