@@ -123,6 +123,7 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "35vh" }}
           />
           <TextField
             label="Hasta"
@@ -132,19 +133,19 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginLeft: "20px" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "35vh" }}
           />
           <TextField
             label="Buscar por Descripción"
             value={searchDescription}
             onChange={(e) => setSearchDescription(e.target.value)}
-            style={{ marginLeft: "20px" }}
+            style={{ marginRight: "20px", minWidth: "35vh" }}
           />
           <TextField
             label="Buscar por Monto"
             value={searchAmount}
             onChange={(e) => setSearchAmount(e.target.value)}
-            style={{marginLeft: "20px"}}
+            style={{ marginRight: "20px", minWidth: "35vh" }}
           />
         </div>
         
