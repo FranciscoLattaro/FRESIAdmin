@@ -3,13 +3,18 @@ import React, { useState, useEffect } from "react";
 import BasicTable from "./BasicTable";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import TextField from "@mui/material/TextField";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { Link } from "react-router-dom";
+
 const URI = "http://localhost:8000/suites/";
 
 const CompMostrarFranquicias = () => {
   const [franqs, setFranqs] = useState([]);
+  const [searchNombre, setSearchNombre] = useState("");
+  const [searchCedula, setSearchCedula] = useState("");
+  
   const { user } = useAuth(); // Obtener el usuario autenticado
   useAuthRedirect(user); //Redirigir si no está autenticado
 
@@ -35,19 +40,50 @@ const CompMostrarFranquicias = () => {
     }
   };
 
+  const filterByNombre = (items) => {
+    if (!searchNombre) return items;
+    return items.filter((item) =>
+      item.nombreCompleto.toLowerCase().includes(searchNombre.toLowerCase())
+    );
+  };
+
+  const filterByCedula = (items) => {
+    if (!searchCedula) return items;
+    return items.filter((item) =>
+      item.cedula.toLowerCase().includes(searchCedula.toLowerCase())
+    );
+  };
+
+  const applyFilters = (items) => {
+    let filteredItems = filterByNombre(items);
+    filteredItems = filterByCedula(filteredItems);
+    return filteredItems;
+  };
+
+  const filteredFranqs = applyFilters(franqs);
+
   return (
     <div className="container mb-5">
-      {/*<h3 className="d-flex justify-content-end fst-italic p-3 border shadow rounded-2 bg-formTitles">
-        Historial de Suites
-      </h3>*/}
-      {/* <div className="row border border-dark rounded-3 mt-3 shadow p-2 bg-forms">
-        <div className="col overflow-scroll">*/}
+      <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+        <TextField
+          label="Nombre Completo"
+          value={searchNombre}
+          onChange={(e) => setSearchNombre(e.target.value)}
+          style={{ marginRight: "20px", minWidth: "30vh" }}
+        />
+        <TextField
+          label="Cédula"
+          value={searchCedula}
+          onChange={(e) => setSearchCedula(e.target.value)}
+          style={{ marginRight: "20px", minWidth: "30vh" }}
+        />
+      </div>
 
-      <BasicTable rows={franqs} deleteFranq={deleteFranq} />
+      <BasicTable rows={filteredFranqs} deleteFranq={deleteFranq} />
 
       <Button
         component={Link}
-        className="mt-2  "
+        className="mt-2"
         variant="contained"
         sx={{
           backgroundColor: "success",
@@ -62,8 +98,6 @@ const CompMostrarFranquicias = () => {
       >
         Nueva Suite
       </Button>
-      {/* </div>
-      </div> */}
     </div>
   );
 };
