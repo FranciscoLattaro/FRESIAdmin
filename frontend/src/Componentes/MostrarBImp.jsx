@@ -81,7 +81,7 @@ const CompMostrarBImp = () => {
 
   return (
     <div className="container w-100">
-      <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+      <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
         <TextField
           label="Desde"
           type="datetime-local"
@@ -90,7 +90,7 @@ const CompMostrarBImp = () => {
           InputLabelProps={{
             shrink: true,
           }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Hasta"
@@ -100,31 +100,31 @@ const CompMostrarBImp = () => {
           InputLabelProps={{
             shrink: true,
           }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Email SHEIN"
           value={emailShein}
           onChange={(e) => setEmailShein(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Email Google"
           value={emailGoogle}
           onChange={(e) => setEmailGoogle(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="ID Importación específica"
           value={idImportacion}
           onChange={(e) => setIdImportacion(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Nro. pedido Shein"
           value={nroPedidoShein}
           onChange={(e) => setNroPedidoShein(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
       </div>
       <BasicTableBimps rows={filteredBimps} deleteRow={deleteBimps} />

@@ -107,7 +107,7 @@ const CompMostrarEImp = () => {
 
   return (
     <div className="container w-100">
-      <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+      <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
         <TextField
           label="Desde"
           type="datetime-local"
@@ -116,7 +116,7 @@ const CompMostrarEImp = () => {
           InputLabelProps={{
             shrink: true,
           }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
         />
         <TextField
           label="Hasta"
@@ -126,37 +126,37 @@ const CompMostrarEImp = () => {
           InputLabelProps={{
             shrink: true,
           }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="ID"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Franquicia"
           value={searchFranquicia}
           onChange={(e) => setSearchFranquicia(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px",minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Nros Shein"
           value={searchNrosShein}
           onChange={(e) => setSearchNrosShein(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Detalle Compra"
           value={searchDetalleCompra}
           onChange={(e) => setSearchDetalleCompra(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
         <TextField
           label="Tarjeta"
           value={searchTarjeta}
           onChange={(e) => setSearchTarjeta(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
+          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
         />
       </div>
 

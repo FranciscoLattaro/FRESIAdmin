@@ -7,20 +7,23 @@ import TextField from "@mui/material/TextField";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { Link } from "react-router-dom";
-
 const URI = "http://localhost:8000/suites/";
 
 const CompMostrarFranquicias = () => {
   const [franqs, setFranqs] = useState([]);
-  const [searchNombre, setSearchNombre] = useState("");
-  const [searchCedula, setSearchCedula] = useState("");
-  
+  const [filteredFranqs, setFilteredFranqs] = useState([]);
+  const [nameFilter, setNameFilter] = useState("");
+  const [cedulaFilter, setCedulaFilter] = useState("");
   const { user } = useAuth(); // Obtener el usuario autenticado
-  useAuthRedirect(user); //Redirigir si no está autenticado
+  useAuthRedirect(user); // Redirigir si no está autenticado
 
   useEffect(() => {
     getFranqs();
   }, []);
+
+  useEffect(() => {
+    filterFranqs();
+  }, [nameFilter, cedulaFilter, franqs]);
 
   const getFranqs = async () => {
     try {
@@ -29,6 +32,20 @@ const CompMostrarFranquicias = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  };
+
+  const filterFranqs = () => {
+    const lowercasedNameFilter = nameFilter.toLowerCase();
+    const lowercasedCedulaFilter = cedulaFilter.toLowerCase();
+
+    const filtered = franqs.filter((franq) => {
+      return (
+        franq.nombre_completo.toLowerCase().includes(lowercasedNameFilter) &&
+        franq.cedula_identidad.toLowerCase().includes(lowercasedCedulaFilter)
+      );
+    });
+    
+    setFilteredFranqs(filtered);
   };
 
   const deleteFranq = async (id) => {
@@ -40,47 +57,29 @@ const CompMostrarFranquicias = () => {
     }
   };
 
-  const filterByNombre = (items) => {
-    if (!searchNombre) return items;
-    return items.filter((item) =>
-      item.nombreCompleto.toLowerCase().includes(searchNombre.toLowerCase())
-    );
-  };
-
-  const filterByCedula = (items) => {
-    if (!searchCedula) return items;
-    return items.filter((item) =>
-      item.cedula.toLowerCase().includes(searchCedula.toLowerCase())
-    );
-  };
-
-  const applyFilters = (items) => {
-    let filteredItems = filterByNombre(items);
-    filteredItems = filterByCedula(filteredItems);
-    return filteredItems;
-  };
-
-  const filteredFranqs = applyFilters(franqs);
-
   return (
     <div className="container mb-5">
-      <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
-        <TextField
-          label="Nombre Completo"
-          value={searchNombre}
-          onChange={(e) => setSearchNombre(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
-        />
-        <TextField
-          label="Cédula"
-          value={searchCedula}
-          onChange={(e) => setSearchCedula(e.target.value)}
-          style={{ marginRight: "20px", minWidth: "30vh" }}
-        />
+      <div className="row mb-3">
+        <div className="col-12" style={{ margin: "0 20px 20px 20px" }}>
+          <TextField
+            label="Nombre Completo"
+            variant="outlined"
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            margin="normal"
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+          />
+          <TextField
+            label="Cédula de Identidad"
+            variant="outlined"
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            margin="normal"
+            value={cedulaFilter}
+            onChange={(e) => setCedulaFilter(e.target.value)}
+          />
+        </div>
       </div>
-
       <BasicTable rows={filteredFranqs} deleteFranq={deleteFranq} />
-
       <Button
         component={Link}
         className="mt-2"
@@ -88,10 +87,6 @@ const CompMostrarFranquicias = () => {
         sx={{
           backgroundColor: "success",
           color: "#FFFFFF",
-          /*"&:hover": {
-            backgroundColor: "darkgrey",
-            color: "black",
-          },*/
         }}
         to={`/suites/create`}
         startIcon={<AddIcon />}

@@ -109,7 +109,7 @@ const CompMostrarTrackings = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className="container w-100">
-        <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+        <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
           <TextField
             label="Desde"
             type="datetime-local"
@@ -118,7 +118,7 @@ const CompMostrarTrackings = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Hasta"
@@ -128,37 +128,37 @@ const CompMostrarTrackings = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Empresa de Transporte"
             value={searchEmpresa}
             onChange={(e) => setSearchEmpresa(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Tracking"
             value={searchTracking}
             onChange={(e) => setSearchTracking(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Franquicia Asociada"
             value={searchFranquicia}
             onChange={(e) => setSearchFranquicia(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Estado de Tracking"
             value={searchEstado}
             onChange={(e) => setSearchEstado(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="ID de Importación Específica"
             value={searchImportacionId}
             onChange={(e) => setSearchImportacionId(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
           />
         </div>
 
