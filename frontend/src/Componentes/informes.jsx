@@ -114,7 +114,7 @@ const Informe = () => {
           Informe de Facturas y Gastos
         </Typography>
 
-        <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+        <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
           <TextField
             label="Desde"
             type="datetime-local"
@@ -123,7 +123,7 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Hasta"
@@ -133,19 +133,19 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
           />
           <TextField
             label="Buscar por Descripción"
             value={searchDescription}
             onChange={(e) => setSearchDescription(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
           />
           <TextField
             label="Buscar por Monto"
             value={searchAmount}
             onChange={(e) => setSearchAmount(e.target.value)}
-            style={{ marginRight: "20px", minWidth: "30vh" }}
+            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
           />
         </div>
         
@@ -158,8 +158,9 @@ const Informe = () => {
             <TableRow>
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
-              <TableCell>Imagen</TableCell>
               <TableCell>Fecha de Creación</TableCell>
+              <TableCell>Imagen</TableCell>
+            
             </TableRow>
           </TableHead>
           <TableBody>
@@ -169,6 +170,9 @@ const Informe = () => {
                 <TableRow key={factura.id}>
                   <TableCell>{factura.description}</TableCell>
                   <TableCell>{factura.amount}</TableCell>
+                  
+                  <TableCell>{factura.createdAt.slice(0,10)}</TableCell>
+
                   <TableCell>
                     <Button
                       variant="contained"
@@ -178,7 +182,6 @@ const Informe = () => {
                       Ver factura
                     </Button>
                   </TableCell>
-                  <TableCell>{factura.createdAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
@@ -195,8 +198,8 @@ const Informe = () => {
             <TableRow>
               <TableCell>Descripción</TableCell>
               <TableCell>Monto</TableCell>
-              <TableCell>Imagen</TableCell>
               <TableCell>Fecha de Creación</TableCell>
+              <TableCell>Imagen</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -206,6 +209,7 @@ const Informe = () => {
                 <TableRow key={factura.id}>
                   <TableCell>{factura.description}</TableCell>
                   <TableCell>{factura.amount}</TableCell>
+                  <TableCell>{factura.createdAt.slice(0,10)}</TableCell>
                   <TableCell>
                     <Button
                       variant="contained"
@@ -215,7 +219,6 @@ const Informe = () => {
                       Ver factura
                     </Button>
                   </TableCell>
-                  <TableCell>{factura.createdAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
