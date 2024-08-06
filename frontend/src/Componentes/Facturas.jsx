@@ -9,6 +9,19 @@ const Facturas = () => {
     setValue(newValue);
   };
 
+  const getPrefix = () => {
+    switch (value) {
+      case 0:
+        return "PM";
+      case 1:
+        return "SH";
+      case 2:
+        return "GV";
+      default:
+        return "";
+    }
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -21,20 +34,17 @@ const Facturas = () => {
       <Box sx={{ p: 3 }}>
         {value === 0 && (
           <>
-            <Typography className='mb-2'>Sube tu factura de Punto Mío! Recuerda agregar PM en la descripción</Typography>
-            <FacturaForm /> {/* Agrega el formulario aquí */}
+            <FacturaForm prefix={getPrefix()} /> {/* Agrega el formulario aquí */}
           </>
         )}
         {value === 1 && (
           <>
-            <Typography className='mb-2'>Sube tu factura de SHEIN! Recuerda agregar SH en la descripción</Typography>
-            <FacturaForm /> {/* Agrega el formulario aquí */}
+            <FacturaForm prefix={getPrefix()} /> {/* Agrega el formulario aquí */}
           </>
         )}
         {value === 2 && (
           <>
-            <Typography className='mb-2'>Sube tu factura de Gastos Varios! Recuerda agregar GV en la descripción</Typography>
-            <FacturaForm /> {/* Agrega el formulario aquí */}
+            <FacturaForm prefix={getPrefix()} /> {/* Agrega el formulario aquí */}
           </>
         )}
       </Box>

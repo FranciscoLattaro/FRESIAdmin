@@ -18,7 +18,7 @@ import {
 import { UploadFile } from "@mui/icons-material";
 import axios from "axios";
 
-const FacturaForm = () => {
+const FacturaForm = ({ prefix }) => {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -50,9 +50,10 @@ const FacturaForm = () => {
   };
 
   const handleSubmit = async () => {
+    const prefixedDescription = `${prefix}-${description}`;
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("description", description);
+    formData.append("description", prefixedDescription);
     formData.append("amount", amount);
     formData.append("currency", currency);
 
@@ -149,7 +150,7 @@ const FacturaForm = () => {
         <DialogTitle id="alert-dialog-title">{"Confirmar Subida"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            ¿Estás seguro de que deseas subir este archivo?
+            ¿Estás seguro de que deseas guardar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
