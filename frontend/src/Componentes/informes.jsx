@@ -108,23 +108,51 @@ const Informe = () => {
   };
 
   const handleOpenImage = (filePath) => {
-    const imageUrl = `http://localhost:8000/${filePath}`;
+    const imageUrl = `http://localhost:8000/uploads/${filePath}`;
+    console.log(imageUrl)
     window.open(imageUrl, "_blank");
   };
 
   const exportPDF = () => {
-    const doc = new jsPDF();
-    autoTable(doc, {
-      head: [["Descripción", "Monto", "Fecha de Creación", "Moneda"]],
-      body: filteredFacturas.map((factura) => [
+  const doc = new jsPDF();
+  autoTable(doc, {
+    head: [["Descripción", "Monto", "Fecha de Creación", "Moneda"]],
+    body: [
+      ...filteredFacturas.map((factura) => [
         factura.description,
         factura.amount,
         factura.createdAt.slice(0, 10),
         factura.currency,
       ]),
-    });
-    doc.save("facturas.pdf");
-  };
+      [
+        "Total Neto en Pesos Uruguayos",
+        totalNetoPesos,
+        "",
+        "UYU",
+      ],
+      [
+        "Total Neto en Dólares Americanos",
+        totalNetoDolares,
+        "",
+        "USD",
+      ],
+      [
+        "Total Neto en Pesos Uruguayos (Convertido)",
+        totalNetoDolaresEnPesos,
+        "",
+        "UYU",
+      ],
+      [
+        "Total Neto Global en Pesos Uruguayos",
+        totalNetoGlobalEnPesos,
+        "",
+        "UYU",
+      ],
+    ],
+  });
+  doc.save("facturas.pdf");
+};
+
 
   const exportExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
@@ -133,7 +161,31 @@ const Informe = () => {
         Monto: factura.amount,
         "Fecha de Creación": factura.createdAt.slice(0, 10),
         Moneda: factura.currency,
-      }))
+      })),
+      {
+        Descripción: "Total Neto en Pesos Uruguayos",
+        Monto: totalNetoPesos,
+        "Fecha de Creación": "",
+        Moneda: "UYU",
+      },
+      {
+        Descripción: "Total Neto en Dólares Americanos",
+        Monto: totalNetoDolares,
+        "Fecha de Creación": "",
+        Moneda: "USD",
+      },
+      {
+        Descripción: "Total Neto en Pesos Uruguayos (Convertido)",
+        Monto: totalNetoDolaresEnPesos,
+        "Fecha de Creación": "",
+        Moneda: "UYU",
+      },
+      {
+        Descripción: "Total Neto Global en Pesos Uruguayos",
+        Monto: totalNetoGlobalEnPesos,
+        "Fecha de Creación": "",
+        Moneda: "UYU",
+      },
     );
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Facturas");
@@ -276,7 +328,8 @@ const Informe = () => {
                     <Button
                       variant="outlined"
                       color="primary"
-                      onClick={() => handleOpenImage(factura.file_path)}
+                      // Ruta del archivo
+                      onClick={() => handleOpenImage(factura.filePath.split('\\').pop())}
                       startIcon={<ReceiptIcon />}
                     >
                       Ver
@@ -286,7 +339,7 @@ const Informe = () => {
               ))}
           </TableBody>
         </Table>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" className="mt-5 text-end" gutterBottom>
           Total Neto en Pesos Uruguayos: {totalNetoPesos}
         </Typography>
 
@@ -324,48 +377,17 @@ const Informe = () => {
               ))}
           </TableBody>
         </Table>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" className="mt-5 text-end" gutterBottom>
           Total Neto en Dólares Americanos: {totalNetoDolares}
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" className="text-end" gutterBottom>
           Total Neto en Pesos Uruguayos (Convertido): {totalNetoDolaresEnPesos}
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" className="text-end" gutterBottom>
           Total Neto Global en Pesos Uruguayos: {totalNetoGlobalEnPesos}
         </Typography>
 
-        <Typography variant="h6" gutterBottom>
-          Gastos
-        </Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Descripción</TableCell>
-              <TableCell>Monto</TableCell>
-              <TableCell>Fecha de Creación</TableCell>
-              <TableCell>Imagen</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredGastos.map((gasto) => (
-              <TableRow key={gasto.id}>
-                <TableCell>{gasto.description}</TableCell>
-                <TableCell>{gasto.amount}</TableCell>
-                <TableCell>{gasto.createdAt.slice(0, 10)}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleOpenImage(gasto.file_path)}
-                    startIcon={<ReceiptIcon />}
-                  >
-                    Ver
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        
       </CardContent>
     </Card>
   );

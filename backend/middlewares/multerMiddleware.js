@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Definir el directorio de subidas
-const uploadsDir = path.join(__dirname, '..', 'uploads');
+const uploadsDir = path.join( );
 
 // Asegurarse de que el directorio `uploads` existe
 if (!fs.existsSync(uploadsDir)) {
@@ -18,7 +18,7 @@ if (!fs.existsSync(uploadsDir)) {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadsDir);
+    cb(null, path.join(__dirname, "../uploads"));
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -32,6 +32,9 @@ export const createFile = async (req, res) => {
   try {
     const { description, amount, currency } = req.body;
     const filePath = req.file ? req.file.path : null;
+
+
+
     await filerecords.create({ filePath, description, amount, currency });
     res.json({
       message: "El registro fue creado correctamente",
