@@ -8,6 +8,11 @@ import BasicTableTracking from "./BasicTableTracking.jsx";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { Link } from "react-router-dom";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";  // Importar dayjs
 
 const theme = createTheme({
@@ -55,7 +60,7 @@ const CompMostrarTrackings = () => {
     if (!startDate || !endDate) return items;
     return items.filter((item) => {
       const itemDate = dayjs(item.createdAt);
-      return itemDate.isAfter(dayjs(startDate)) && itemDate.isBefore(dayjs(endDate));
+      return itemDate.isBetween(dayjs(startDate), dayjs(endDate), 'day', '[]');
     });
   };
 
@@ -108,62 +113,71 @@ const CompMostrarTrackings = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="container w-100">
-        <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
-          <TextField
-            label="Desde"
-            type="datetime-local"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="Hasta"
-            type="datetime-local"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="Empresa de Transporte"
-            value={searchEmpresa}
-            onChange={(e) => setSearchEmpresa(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="Tracking"
-            value={searchTracking}
-            onChange={(e) => setSearchTracking(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="Franquicia Asociada"
-            value={searchFranquicia}
-            onChange={(e) => setSearchFranquicia(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="Estado de Tracking"
-            value={searchEstado}
-            onChange={(e) => setSearchEstado(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-          />
-          <TextField
-            label="ID de Importación Específica"
-            value={searchImportacionId}
-            onChange={(e) => setSearchImportacionId(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
-          />
-        </div>
-
-        <BasicTableTracking rows={filteredTrackings} deleteTracking={deleteTracking} />
-
+      <div className="container mt-0 w-100">
+        <Accordion >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Filtros</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div className="display-flex align-items-center flex-wrap" style={{ gap: '20px' }}>
+              <TextField
+                label="Desde"
+                type="datetime-local"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="Hasta"
+                type="datetime-local"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="Empresa de Transporte"
+                value={searchEmpresa}
+                onChange={(e) => setSearchEmpresa(e.target.value)}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="Tracking"
+                value={searchTracking}
+                onChange={(e) => setSearchTracking(e.target.value)}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="Franquicia Asociada"
+                value={searchFranquicia}
+                onChange={(e) => setSearchFranquicia(e.target.value)}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="Estado de Tracking"
+                value={searchEstado}
+                onChange={(e) => setSearchEstado(e.target.value)}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+              <TextField
+                label="ID de Importación Específica"
+                value={searchImportacionId}
+                onChange={(e) => setSearchImportacionId(e.target.value)}
+                style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              />
+            </div>
+          </AccordionDetails>
+        </Accordion>
+        <BasicTableTracking  rows={filteredTrackings} deleteTracking={deleteTracking} />
         <Button
           component={Link}
           className="mt-2"

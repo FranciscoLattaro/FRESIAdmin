@@ -23,6 +23,8 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+
 
 const Informe = () => {
   const [facturas, setFacturas] = useState([]);
@@ -275,14 +277,18 @@ const Informe = () => {
           />
         </div>
 
-        <Button
+        <div className="display-flex text-end">
+          <Button
           variant="contained"
           color="primary"
           onClick={() => setOpenDialog(true)}
           style={{ marginBottom: "20px" }}
+          startIcon={<FileDownloadIcon/>}
         >
           Exportar
         </Button>
+        </div>
+        
 
         <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
           <DialogTitle>Exportar Datos</DialogTitle>
