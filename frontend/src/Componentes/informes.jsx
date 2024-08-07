@@ -11,9 +11,18 @@ import {
   Button,
   CircularProgress,
   TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import axios from "axios";
 import dayjs from "dayjs";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import * as XLSX from "xlsx";
 
 const Informe = () => {
   const [facturas, setFacturas] = useState([]);
@@ -23,6 +32,7 @@ const Informe = () => {
   const [endDate, setEndDate] = useState("");
   const [searchDescription, setSearchDescription] = useState("");
   const [searchAmount, setSearchAmount] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
   const conversionRate = 40; // Suponiendo una tasa de conversión de 1 USD a 40 UYU
 
   useEffect(() => {
@@ -60,7 +70,9 @@ const Informe = () => {
     if (!startDate || !endDate) return items;
     return items.filter((item) => {
       const itemDate = dayjs(item.createdAt);
-      return itemDate.isAfter(dayjs(startDate)) && itemDate.isBefore(dayjs(endDate));
+      return (
+        itemDate.isAfter(dayjs(startDate)) && itemDate.isBefore(dayjs(endDate))
+      );
     });
   };
 
@@ -73,7 +85,9 @@ const Informe = () => {
 
   const filterByAmount = (items) => {
     if (!searchAmount) return items;
-    return items.filter((item) => item.amount.toString().includes(searchAmount));
+    return items.filter((item) =>
+      item.amount.toString().includes(searchAmount)
+    );
   };
 
   const applyFilters = (items) => {
@@ -98,6 +112,43 @@ const Informe = () => {
     window.open(imageUrl, "_blank");
   };
 
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [["Descripción", "Monto", "Fecha de Creación", "Moneda"]],
+      body: filteredFacturas.map((factura) => [
+        factura.description,
+        factura.amount,
+        factura.createdAt.slice(0, 10),
+        factura.currency,
+      ]),
+    });
+    doc.save("facturas.pdf");
+  };
+
+  const exportExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(
+      filteredFacturas.map((factura) => ({
+        Descripción: factura.description,
+        Monto: factura.amount,
+        "Fecha de Creación": factura.createdAt.slice(0, 10),
+        Moneda: factura.currency,
+      }))
+    );
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Facturas");
+    XLSX.writeFile(workbook, "facturas.xlsx");
+  };
+
+  const handleExport = (type) => {
+    setOpenDialog(false);
+    if (type === "pdf") {
+      exportPDF();
+    } else if (type === "excel") {
+      exportExcel();
+    }
+  };
+
   if (loading) {
     return <CircularProgress />;
   }
@@ -114,7 +165,10 @@ const Informe = () => {
           Informe de Facturas y Gastos
         </Typography>
 
-        <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
+        <div
+          className="display-flex align-items-center"
+          style={{ margin: "0 20px 20px 20px" }}
+        >
           <TextField
             label="Desde"
             type="datetime-local"
@@ -123,7 +177,12 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            style={{
+              marginRight: "20px",
+              marginBottom: "10px",
+              minWidth: "20vh",
+              maxWidth: "20vh",
+            }}
           />
           <TextField
             label="Hasta"
@@ -133,22 +192,65 @@ const Informe = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            style={{
+              marginRight: "20px",
+              marginBottom: "10px",
+              minWidth: "20vh",
+              maxWidth: "20vh",
+            }}
           />
           <TextField
             label="Buscar por Descripción"
             value={searchDescription}
             onChange={(e) => setSearchDescription(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
+            style={{
+              marginRight: "20px",
+              marginBottom: "10px",
+              minWidth: "20vh",
+              maxWidth: "20vh",
+            }}
           />
           <TextField
             label="Buscar por Monto"
             value={searchAmount}
             onChange={(e) => setSearchAmount(e.target.value)}
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh"}}
+            style={{
+              marginRight: "20px",
+              marginBottom: "10px",
+              minWidth: "20vh",
+              maxWidth: "20vh",
+            }}
           />
         </div>
-        
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setOpenDialog(true)}
+          style={{ marginBottom: "20px" }}
+        >
+          Exportar
+        </Button>
+
+        <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+          <DialogTitle>Exportar Datos</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Por favor, elija el formato de exportación.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => handleExport("pdf")} color="primary">
+              PDF
+            </Button>
+            <Button onClick={() => handleExport("excel")} color="primary">
+              Excel
+            </Button>
+            <Button onClick={() => setOpenDialog(false)} color="primary">
+              Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <Typography variant="h6" gutterBottom>
           Facturas en Pesos Uruguayos
@@ -160,7 +262,6 @@ const Informe = () => {
               <TableCell>Monto</TableCell>
               <TableCell>Fecha de Creación</TableCell>
               <TableCell>Imagen</TableCell>
-            
             </TableRow>
           </TableHead>
           <TableBody>
@@ -170,28 +271,27 @@ const Informe = () => {
                 <TableRow key={factura.id}>
                   <TableCell>{factura.description}</TableCell>
                   <TableCell>{factura.amount}</TableCell>
-                  
-                  <TableCell>{factura.createdAt.slice(0,10)}</TableCell>
-
+                  <TableCell>{factura.createdAt.slice(0, 10)}</TableCell>
                   <TableCell>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
-                      onClick={() => handleOpenImage(factura.filePath)}
+                      onClick={() => handleOpenImage(factura.file_path)}
+                      startIcon={<ReceiptIcon />}
                     >
-                      Ver factura
+                      Ver
                     </Button>
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
-        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
-          Total UYU: {totalNetoPesos.toFixed(2)}
+        <Typography variant="h6" gutterBottom>
+          Total Neto en Pesos Uruguayos: {totalNetoPesos}
         </Typography>
 
         <Typography variant="h6" gutterBottom>
-          Facturas en Dólares
+          Facturas en Dólares Americanos
         </Typography>
         <Table>
           <TableHead>
@@ -209,27 +309,63 @@ const Informe = () => {
                 <TableRow key={factura.id}>
                   <TableCell>{factura.description}</TableCell>
                   <TableCell>{factura.amount}</TableCell>
-                  <TableCell>{factura.createdAt.slice(0,10)}</TableCell>
+                  <TableCell>{factura.createdAt.slice(0, 10)}</TableCell>
                   <TableCell>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
-                      onClick={() => handleOpenImage(factura.filePath)}
+                      onClick={() => handleOpenImage(factura.file_path)}
+                      startIcon={<ReceiptIcon />}
                     >
-                      Ver factura
+                      Ver
                     </Button>
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
+        <Typography variant="h6" gutterBottom>
+          Total Neto en Dólares Americanos: {totalNetoDolares}
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Total Neto en Pesos Uruguayos (Convertido): {totalNetoDolaresEnPesos}
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Total Neto Global en Pesos Uruguayos: {totalNetoGlobalEnPesos}
+        </Typography>
 
-        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
-          Total USD (conv. UYU): {totalNetoDolaresEnPesos.toFixed(2)}
+        <Typography variant="h6" gutterBottom>
+          Gastos
         </Typography>
-        <Typography className="mt-3 text-end" variant="h6" gutterBottom>
-          Total: {totalNetoGlobalEnPesos.toFixed(2)}
-        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Descripción</TableCell>
+              <TableCell>Monto</TableCell>
+              <TableCell>Fecha de Creación</TableCell>
+              <TableCell>Imagen</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredGastos.map((gasto) => (
+              <TableRow key={gasto.id}>
+                <TableCell>{gasto.description}</TableCell>
+                <TableCell>{gasto.amount}</TableCell>
+                <TableCell>{gasto.createdAt.slice(0, 10)}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => handleOpenImage(gasto.file_path)}
+                    startIcon={<ReceiptIcon />}
+                  >
+                    Ver
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   );
