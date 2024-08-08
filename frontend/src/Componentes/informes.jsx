@@ -370,10 +370,11 @@ const Informe = () => {
                   <TableCell>{factura.amount}</TableCell>
                   <TableCell>{factura.createdAt.slice(0, 10)}</TableCell>
                   <TableCell>
-                    <Button
+                  <Button
                       variant="outlined"
                       color="primary"
-                      onClick={() => handleOpenImage(factura.file_path)}
+                      // Ruta del archivo
+                      onClick={() => handleOpenImage(factura.filePath.split('\\').pop())}
                       startIcon={<ReceiptIcon />}
                     >
                       Ver
