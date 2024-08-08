@@ -23,8 +23,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 const Informe = () => {
   const [facturas, setFacturas] = useState([]);
@@ -111,50 +110,39 @@ const Informe = () => {
 
   const handleOpenImage = (filePath) => {
     const imageUrl = `http://localhost:8000/uploads/${filePath}`;
-    console.log(imageUrl)
+    console.log(imageUrl);
     window.open(imageUrl, "_blank");
   };
 
   const exportPDF = () => {
-  const doc = new jsPDF();
-  autoTable(doc, {
-    head: [["Descripción", "Monto", "Fecha de Creación", "Moneda"]],
-    body: [
-      ...filteredFacturas.map((factura) => [
-        factura.description,
-        factura.amount,
-        factura.createdAt.slice(0, 10),
-        factura.currency,
-      ]),
-      [
-        "Total Neto en Pesos Uruguayos",
-        totalNetoPesos,
-        "",
-        "UYU",
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [["Descripción", "Monto", "Fecha de Creación", "Moneda"]],
+      body: [
+        ...filteredFacturas.map((factura) => [
+          factura.description,
+          factura.amount,
+          factura.createdAt.slice(0, 10),
+          factura.currency,
+        ]),
+        ["Total Neto en Pesos Uruguayos", totalNetoPesos, "", "UYU"],
+        ["Total Neto en Dólares Americanos", totalNetoDolares, "", "USD"],
+        [
+          "Total Neto en Pesos Uruguayos (Convertido)",
+          totalNetoDolaresEnPesos,
+          "",
+          "UYU",
+        ],
+        [
+          "Total Neto Global en Pesos Uruguayos",
+          totalNetoGlobalEnPesos,
+          "",
+          "UYU",
+        ],
       ],
-      [
-        "Total Neto en Dólares Americanos",
-        totalNetoDolares,
-        "",
-        "USD",
-      ],
-      [
-        "Total Neto en Pesos Uruguayos (Convertido)",
-        totalNetoDolaresEnPesos,
-        "",
-        "UYU",
-      ],
-      [
-        "Total Neto Global en Pesos Uruguayos",
-        totalNetoGlobalEnPesos,
-        "",
-        "UYU",
-      ],
-    ],
-  });
-  doc.save("facturas.pdf");
-};
-
+    });
+    doc.save("facturas.pdf");
+  };
 
   const exportExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
@@ -187,7 +175,7 @@ const Informe = () => {
         Monto: totalNetoGlobalEnPesos,
         "Fecha de Creación": "",
         Moneda: "UYU",
-      },
+      }
     );
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Facturas");
@@ -279,16 +267,15 @@ const Informe = () => {
 
         <div className="display-flex text-end">
           <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setOpenDialog(true)}
-          style={{ marginBottom: "20px" }}
-          startIcon={<FileDownloadIcon/>}
-        >
-          Exportar
-        </Button>
+            variant="contained"
+            color="primary"
+            onClick={() => setOpenDialog(true)}
+            style={{ marginBottom: "20px" }}
+            startIcon={<FileDownloadIcon />}
+          >
+            Exportar
+          </Button>
         </div>
-        
 
         <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
           <DialogTitle>Exportar Datos</DialogTitle>
@@ -335,7 +322,9 @@ const Informe = () => {
                       variant="outlined"
                       color="primary"
                       // Ruta del archivo
-                      onClick={() => handleOpenImage(factura.filePath.split('\\').pop())}
+                      onClick={() =>
+                        handleOpenImage(factura.filePath.split("\\").pop())
+                      }
                       startIcon={<ReceiptIcon />}
                     >
                       Ver
@@ -392,8 +381,6 @@ const Informe = () => {
         <Typography variant="h6" className="text-end" gutterBottom>
           Total Neto Global en Pesos Uruguayos: {totalNetoGlobalEnPesos}
         </Typography>
-
-        
       </CardContent>
     </Card>
   );
