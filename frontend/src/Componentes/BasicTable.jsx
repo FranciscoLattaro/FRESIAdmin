@@ -38,7 +38,7 @@ const BasicTable = ({ rows, deleteFranq }) => {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div className="container w-100">
+    <div className="container mt-0 w-100">
       <div className="row ">
         <TableContainer className="col-12" component={Paper}>
           <Table sx={{ minWidth: 800 }} aria-label="simple table">

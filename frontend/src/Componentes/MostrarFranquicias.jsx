@@ -4,9 +4,15 @@ import BasicTable from "./BasicTable";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Typography from "@mui/material/Typography";
 import { useAuth } from "./utils/AuthContext.js";
 import useAuthRedirect from "./utils/useAuthRedirect.js";
 import { Link } from "react-router-dom";
+
 const URI = "http://localhost:8000/suites/";
 
 const CompMostrarFranquicias = () => {
@@ -58,27 +64,36 @@ const CompMostrarFranquicias = () => {
   };
 
   return (
-    <div className="container mb-5">
-      <div className="row mb-3">
-        <div className="col-12" style={{ margin: "0 20px 20px 20px" }}>
-          <TextField
-            label="Nombre Completo"
-            variant="outlined"
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-            margin="normal"
-            value={nameFilter}
-            onChange={(e) => setNameFilter(e.target.value)}
-          />
-          <TextField
-            label="Cédula de Identidad"
-            variant="outlined"
-            style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-            margin="normal"
-            value={cedulaFilter}
-            onChange={(e) => setCedulaFilter(e.target.value)}
-          />
-        </div>
-      </div>
+    <div className="container mt-0 mb-5">
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Filtros</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className="display-flex align-items-center flex-wrap" style={{ gap: '20px' }}>
+            <TextField
+              label="Nombre Completo"
+              variant="outlined"
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              margin="normal"
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
+            />
+            <TextField
+              label="Cédula de Identidad"
+              variant="outlined"
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+              margin="normal"
+              value={cedulaFilter}
+              onChange={(e) => setCedulaFilter(e.target.value)}
+            />
+          </div>
+        </AccordionDetails>
+      </Accordion>
       <BasicTable rows={filteredFranqs} deleteFranq={deleteFranq} />
       <Button
         component={Link}

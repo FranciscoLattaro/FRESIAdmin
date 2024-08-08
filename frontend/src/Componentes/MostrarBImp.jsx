@@ -9,7 +9,12 @@ import { Link } from "react-router-dom";
 import {
   TextField,
   CircularProgress,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
 } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dayjs from "dayjs";  
 const URI = "http://localhost:8000/bimps/";
 
@@ -80,66 +85,72 @@ const CompMostrarBImp = () => {
   }
 
   return (
-    <div className="container w-100">
-      <div className="display-flex align-items-center" style={{ margin: "0 20px 20px 20px" }}>
-        <TextField
-          label="Desde"
-          type="datetime-local"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-        <TextField
-          label="Hasta"
-          type="datetime-local"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-        <TextField
-          label="Email SHEIN"
-          value={emailShein}
-          onChange={(e) => setEmailShein(e.target.value)}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-        <TextField
-          label="Email Google"
-          value={emailGoogle}
-          onChange={(e) => setEmailGoogle(e.target.value)}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-        <TextField
-          label="ID Importación específica"
-          value={idImportacion}
-          onChange={(e) => setIdImportacion(e.target.value)}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-        <TextField
-          label="Nro. pedido Shein"
-          value={nroPedidoShein}
-          onChange={(e) => setNroPedidoShein(e.target.value)}
-          style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
-        />
-      </div>
+    <div className="container mt-0  w-100">
+      <Accordion >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Filtros</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className="display-flex align-items-center" style={{ marginBottom: "20px" }}>
+            <TextField
+              label="Desde"
+              type="datetime-local"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+            <TextField
+              label="Hasta"
+              type="datetime-local"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+            <TextField
+              label="Email SHEIN"
+              value={emailShein}
+              onChange={(e) => setEmailShein(e.target.value)}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+            <TextField
+              label="Email Google"
+              value={emailGoogle}
+              onChange={(e) => setEmailGoogle(e.target.value)}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+            <TextField
+              label="ID Importación específica"
+              value={idImportacion}
+              onChange={(e) => setIdImportacion(e.target.value)}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+            <TextField
+              label="Nro. pedido Shein"
+              value={nroPedidoShein}
+              onChange={(e) => setNroPedidoShein(e.target.value)}
+              style={{ marginRight: "20px", marginBottom: "10px", minWidth: "20vh", maxWidth: "20vh" }}
+            />
+          </div>
+        </AccordionDetails>
+      </Accordion>
       <BasicTableBimps rows={filteredBimps} deleteRow={deleteBimps} />
-
       <Button
-        className="mt-2  "
+        className="mt-2"
         variant="contained"
         component={Link}
         sx={{
           backgroundColor: "success",
           color: "#FFFFFF",
-          /*"&:hover": {
-            backgroundColor: "darkgrey",
-            color: "black",
-          },*/
         }}
         to={`/bimps/create`}
         startIcon={<AddIcon />}
